@@ -1,9 +1,25 @@
+##########################################################################
+#
+# The way to use this package for converting DataFrame to html file:
+# >>> import my_html
+# >>> my_html.create_html(df,title="No Title",file_name="No Name")
+#
+##########################################################################
+#
+# Configuration variables:
+# hovering
+# separator
+# create_link
+#
+##########################################################################
+
 import pandas
 import os
 from decimal import Decimal
 
 hovering=True
 separator=True
+create_link=True
 
 def add_sep(x):
     if type(x)==int or type(x)==Decimal:
@@ -92,9 +108,12 @@ def table(df):
     for i in range(df.shape[0]):
         row=HTMLElement('tr',[HTMLElement('td',str(df.index[i]))])
         for j in range(df.shape[1]):
-            td_content=url_link(df.iat[i,j])
-            if type(td_content)!=HTMLElement:
-                td_content=str(td_content)
+            if create_link==True:
+                td_content=url_link(df.iat[i,j])
+                if type(td_content)!=HTMLElement:
+                    td_content=str(td_content)
+            else:
+                td_content=str(df.iat[i,j])                
             row.content+=[HTMLElement('td',td_content)]
         tbody.content+=[row]
            
