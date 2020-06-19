@@ -10,9 +10,15 @@ def add_sep(x):
     else:
         return x
 
+def link(url,text,new_tab=True):
+    attr={'href':url}
+    if new_tab==True:
+        attr['target']='_blank'
+    return HTMLElement('a',text,attribute=attr)
+
 def url_link(x):
     if type(x)==str and (x[:7]=="http://" or x[:8]=="https://"):
-        return HTMLElement('a','Link',attribute={'href':x,'target':'_blank'}).to_str()
+        return link(x,"Link")
     else:
         return x
 
@@ -85,7 +91,10 @@ def table(df):
     for i in range(df.shape[0]):
         row=HTMLElement('tr',[HTMLElement('td',str(df.index[i]))])
         for j in range(df.shape[1]):
-            row.content+=[HTMLElement('td',str(df.iat[i,j]))]
+            td_content=url_link(df.iat[i,j])
+            if type(td_content)!=HTMLElement:
+                td_content=str(td_content)
+            row.content+=[HTMLElement('td',td_content)]
         tbody.content+=[row]
            
     return HTMLElement("table",[thead,tbody])
@@ -115,7 +124,6 @@ def create_html(df,title="No Title",file_name="No Name"):
     assert cwd!='C:\\Users\\Alan\\AppData\\Local\\Programs\\Python\\Python38'
 
     df=df.applymap(add_sep)
-    df=df.applymap(url_link)
 
     f=open(file_name+".html",'w')
     f.write(df2html(df,title=title))
