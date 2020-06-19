@@ -3,6 +3,7 @@ import os
 from decimal import Decimal
 
 hovering=True
+separator=True
 
 def add_sep(x):
     if type(x)==int or type(x)==Decimal:
@@ -123,7 +124,8 @@ def create_html(df,title="No Title",file_name="No Name"):
     cwd=os.getcwd()
     assert cwd!='C:\\Users\\Alan\\AppData\\Local\\Programs\\Python\\Python38'
 
-    df=df.applymap(add_sep)
+    if separator==True:
+        df=df.applymap(add_sep)
 
     f=open(file_name+".html",'w')
     f.write(df2html(df,title=title))
