@@ -1,6 +1,8 @@
 import pandas
 import os
 
+hovering=True
+
 class HTMLElement:
     """
     The type of content may be
@@ -75,7 +77,7 @@ def table(df):
            
     return HTMLElement("table",[thead,tbody])
 
-def df2html(df,hovering=True,title="No Title"):
+def df2html(df,title="No Title"):
     if hovering==True:
         from my_html.style import hover as style_content
     else:
@@ -95,9 +97,9 @@ def df2html(df,hovering=True,title="No Title"):
 # '/' --> '&#47;'
 # '&' --> '&amp;'
 
-def create_html(df,hovering=True,title="No Title",file_name="No Name"):
+def create_html(df,title="No Title",file_name="No Name"):
     assert os.getcwd()!='C:\\Users\\Alan\\AppData\\Local\\Programs\\Python\\Python38'
     f=open(file_name+".html",'w')
-    f.write(df2html(df,hovering=hovering,title=title))
+    f.write(df2html(df,title=title))
     f.close()
     os.system("start Chrome \""+file_name+"\".html")#properly start chrome
