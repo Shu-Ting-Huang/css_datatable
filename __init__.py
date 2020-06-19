@@ -52,6 +52,14 @@ class HTMLElement:
         (4) one_line and indent, which deal with organizing html code
     """
     def __init__(self,tag,content,one_line=None,indent=None,attribute={}):
+        assert type(tag)==str
+        assert isinstance(content,(str,HTMLElement,list))
+        assert type(content)!=list or\
+               all( isinstance(x,(str,HTMLElement)) for x in content )
+        assert type(attribute)==dict
+        assert all(type(x)==type(attribute[x])==str for x in attribute.keys())
+        assert {one_line,indent}.issubset({True,False,None})
+        
         if (one_line,indent)==(None,None):
             if tag in {"td","th","title","a"}:
                 (one_line,indent)=(True,None)
@@ -90,7 +98,10 @@ class HTMLElement:
         elif type(self.content)==list: #(c) self.content is a list of HTMLElement or str
             content_text=""
             for obj in self.content:
-                content_text += (obj.to_str()+"\n")
+                if type(obj)==HTMLElement:
+                    content_text += (obj.to_str()+"\n")
+                elif type(obj)==str:
+                    content_text += (obj+"\n")
             content_text=content_text[:-1]
 
         #create result
