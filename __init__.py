@@ -39,6 +39,15 @@ def url_link(x):
     else:
         return x
 
+def html_str(x):
+    result=x.replace('&','&amp;')
+    result=result.replace('<','&lt;')
+    result=result.replace('>','&gt;')
+    result=result.replace('\"','&quot;')
+    result=result.replace("\'",'&apos;')
+    #result=result.replace("/",'&#47;')
+    return result
+
 class HTMLElement:
     """
     HTMLElement is the class of html elements. Its instance consists of
@@ -146,14 +155,6 @@ def df2html(df,title="No Title"):
     head_elmt=HTMLElement("head",HTMLElement("title",title))
     html_elmt=HTMLElement("html",[head_elmt,body_elmt])
     return html_elmt.to_str()
-    
-#html escape character?
-# '<' --> '&lt;'
-# '>' --> '&gt;'
-# '\"' --> '&quot;'
-# "\'" --> '&apos;'
-# '/' --> '&#47;'
-# '&' --> '&amp;'
 
 def create_html(df,title="No Title",file_name="No Name"):
     cwd=os.getcwd()
