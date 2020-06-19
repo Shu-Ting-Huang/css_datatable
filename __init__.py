@@ -41,10 +41,15 @@ def url_link(x):
 
 class HTMLElement:
     """
-    The type of content may be
-    (1) string
-    (2) HTMLElement
-    (3) list consisting of HTMLElement or string
+    HTMLElement is the class of html elements. Its instance consists of
+        (1) tag
+        (2) content
+            type(content) may be
+            (a) str
+            (b) HTMLElement
+            (c) list consisting of HTMLElement or str
+        (3) attribute={}
+        (4) one_line and indent, which deal with organizing html code
     """
     def __init__(self,tag,content,one_line=None,indent=None,attribute={}):
         if (one_line,indent)==(None,None):
@@ -78,11 +83,11 @@ class HTMLElement:
         end_tag="</"+self.tag+">"
 
         #create content_text
-        if type(self.content)==str: #(1) self.content is a string
+        if type(self.content)==str: #(a) self.content is a string
             content_text=self.content
-        elif type(self.content)==HTMLElement: #(2) self.content is HTMLElement object
+        elif type(self.content)==HTMLElement: #(b) self.content is HTMLElement object
             content_text=self.content.to_str()
-        elif type(self.content)==list: #(3) self.content is a list
+        elif type(self.content)==list: #(c) self.content is a list of HTMLElement or str
             content_text=""
             for obj in self.content:
                 content_text += (obj.to_str()+"\n")
