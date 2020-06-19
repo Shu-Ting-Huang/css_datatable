@@ -1,7 +1,20 @@
 import pandas
 import os
+from decimal import Decimal
 
 hovering=True
+
+def add_sep(x):
+    if type(x)==int or type(x)==Decimal:
+        return "{:,}".format(x)
+    else:
+        return x
+
+def url_link(x):
+    if type(x)==str and (x[:7]=="http://" or x[:8]=="https://"):
+        return HTMLElement('a','Link',attribute={'href':x,'target':'_blank'}).to_str()
+    else:
+        return x
 
 class HTMLElement:
     """
@@ -100,6 +113,10 @@ def df2html(df,title="No Title"):
 def create_html(df,title="No Title",file_name="No Name"):
     cwd=os.getcwd()
     assert cwd!='C:\\Users\\Alan\\AppData\\Local\\Programs\\Python\\Python38'
+
+    df=df.applymap(add_sep)
+    df=df.applymap(url_link)
+
     f=open(file_name+".html",'w')
     f.write(df2html(df,title=title))
     f.close()
