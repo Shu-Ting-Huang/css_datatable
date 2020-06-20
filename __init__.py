@@ -25,7 +25,7 @@ separator=True
 create_link=True
 
 def add_sep(x):
-    if isinstance(x,(int.Decimal)):
+    if isinstance(x,(int,Decimal)):
         return "{:,}".format(x)
     else:
         return x
