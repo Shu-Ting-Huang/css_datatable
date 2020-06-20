@@ -22,7 +22,7 @@ separator=True
 create_link=True
 
 def add_sep(x):
-    if type(x)==int or type(x)==Decimal:
+    if isinstance(x,(int.Decimal)):
         return "{:,}".format(x)
     else:
         return x
@@ -154,7 +154,7 @@ def df2html(df,title="No Title"):
     body_elmt=HTMLElement("body",[style_elmt,table_elmt],attribute={"bgcolor":"#F1FAFA"})
     head_elmt=HTMLElement("head",HTMLElement("title",title))
     html_elmt=HTMLElement("html",[head_elmt,body_elmt])
-    return html_elmt.to_str()
+    return html_elmt
 
 def create_html(df,title="No Title",file_name="No Name"):
     cwd=os.getcwd()
@@ -164,6 +164,6 @@ def create_html(df,title="No Title",file_name="No Name"):
         df=df.applymap(add_sep)
 
     f=open(file_name+".html",'w')
-    f.write(df2html(df,title=title))
+    f.write(df2html(df,title=title).to_str())
     f.close()
     os.system('start Chrome \"'+cwd+"\\"+file_name+'.html\"')
