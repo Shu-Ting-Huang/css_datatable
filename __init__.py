@@ -4,6 +4,9 @@
 # >>> import my_html
 # >>> my_html.create_html(df,title="No Title",file_name="No Name")
 #
+# The DataFrame df will be placed in an html file and automatically
+# opened by Chrome.
+#
 ##########################################################################
 #
 # Configuration variables:
