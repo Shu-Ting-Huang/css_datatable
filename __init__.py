@@ -161,7 +161,7 @@ def df2html(df,title="No Title"):
 
 def create_html(df,title="No Title",file_name="No Name"):
     cwd=os.getcwd()
-    assert cwd!='C:\\Users\\Alan\\AppData\\Local\\Programs\\Python\\Python38'
+    #assert cwd!='C:\\Users\\Alan\\AppData\\Local\\Programs\\Python\\Python38'
 
     if separator==True:
         df=df.applymap(add_sep)
