@@ -92,7 +92,7 @@ class HTMLElement:
         self.indent=indent
         self.attribute=attribute
                  
-    def to_str(self):
+    def __str__(self):
         #create start_tag
         start_tag="<"+self.tag
         for key in self.attribute.keys():
@@ -106,12 +106,12 @@ class HTMLElement:
         if type(self.content)==str: #(a) self.content is a string
             content_text=self.content
         elif type(self.content)==HTMLElement: #(b) self.content is HTMLElement object
-            content_text=self.content.to_str()
+            content_text=str(self.content)
         elif type(self.content)==list: #(c) self.content is a list of HTMLElement or str
             content_text=""
             for obj in self.content:
                 if type(obj)==HTMLElement:
-                    content_text += (obj.to_str()+"\n")
+                    content_text += (str(obj)+"\n")
                 elif type(obj)==str:
                     content_text += (obj+"\n")
             content_text=content_text[:-1]
@@ -167,6 +167,6 @@ def create_html(df,title="No Title",file_name="No Name"):
         df=df.applymap(add_sep)
 
     f=open(file_name+".html",'w')
-    f.write(df2html(df,title=title).to_str())
+    f.write(str(df2html(df,title=title)))
     f.close()
     os.system('start Chrome \"'+cwd+"\\"+file_name+'.html\"')
