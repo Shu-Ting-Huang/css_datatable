@@ -1,8 +1,8 @@
 ##########################################################################
 #
 # The way to use this package for converting DataFrame to html file:
-# >>> import oop_html
-# >>> oop_html.create_html(df,title="No Title",file_name="No Name")
+# >>> import css_datatable
+# >>> css_datatable.create_html(df,title="No Title",file_name="No Name")
 #
 # The DataFrame df will be placed in an html file and automatically
 # opened by Chrome.
@@ -149,9 +149,9 @@ def table(df):
 
 def df2html(df,title="No Title"):
     if hovering==True:
-        from oop_html.style import hover as style_content
+        from css_datatable.style import hover as style_content
     else:
-        from oop_html.style import no_hover as style_content        
+        from css_datatable.style import no_hover as style_content        
     style_elmt=HTMLElement("style",style_content,attribute={"type":"text/css"})
     table_elmt=table(df)
     body_elmt=HTMLElement("body",[style_elmt,table_elmt],attribute={"bgcolor":"#F1FAFA"})
